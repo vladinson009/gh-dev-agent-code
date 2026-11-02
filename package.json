@@ -1,0 +1,27 @@
+{
+  "name": "devscope",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:dev --workspace @devscope/api\" \"npm:dev --workspace @devscope/web\"",
+    "build": "npm run build --workspace @devscope/shared && npm run build --workspace @devscope/api && npm run build --workspace @devscope/web",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspace @devscope/api",
+    "typecheck": "npm run typecheck --workspace @devscope/shared && npm run typecheck --workspace @devscope/api && npm run typecheck --workspace @devscope/web"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}
